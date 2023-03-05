@@ -20,9 +20,7 @@ public class TaskService {
     private static boolean exit = false;
     private static final DateTimeFormatter mainDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyyг. HHч.mmм.");
     public static void main(String[] args) {
-        addingTEST();
         menu();
-        save();
     }
     public static void menu() {
         while (!exit) {
@@ -188,18 +186,5 @@ public class TaskService {
         List<Task> temp = taskList.stream().filter(task -> task.getDate().isBefore(LocalDateTime.now()) && task.isValidNow()).toList();
         taskList.removeAll(temp);
         removedTasks.addAll(temp);
-    }
-    public static void addingTEST() {
-        taskList.add(new DailyTask("Дэйлик нормальный", WORK, "всё путём", LocalDateTime.now()));
-        taskList.add(new DailyTask("Дэйлик не начался", WORK, "всё не путём", LocalDateTime.now().plusDays(1)));
-        taskList.add(new WeeklyTask("Викли не попадающий", WORK, "всё не путём", LocalDateTime.now().minusDays(5)));
-        taskList.add(new WeeklyTask("Викли нормальный", WORK, "всё путём", LocalDateTime.now().minusDays(7)));
-        taskList.add(new MonthlyTask("Месячный не попадающий", WORK, "всё не путём", LocalDateTime.now().minusDays(20)));
-        taskList.add(new MonthlyTask("Месячный нормальный", WORK, "всё путём", LocalDateTime.now().minusMonths(2)));
-        taskList.add(new YearlyTask("Ежегодный не попадающий", WORK, "всё не путём", LocalDateTime.now().minusMonths(11)));
-        taskList.add(new YearlyTask("Ежегодный нормальный", WORK, "всё путём", LocalDateTime.now()));
-        taskList.add(new OneTimeTask("Уантайм просроченный", WORK, "всё не путём", LocalDateTime.now()));
-        taskList.add(new OneTimeTask("Уантайм сегодня", WORK, "всё путём", LocalDateTime.now()));
-        taskList.add(new OneTimeTask("Уантайм не начался", WORK, "всё путём", LocalDateTime.now().plusDays(1)));
     }
 }
