@@ -49,7 +49,6 @@ public class TaskService {
         }
         System.out.println("GoodBuy");
         scanner.close();
-
     }
     private static void add() {
         String title;
