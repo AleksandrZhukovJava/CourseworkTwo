@@ -5,26 +5,27 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static service.TaskService.removedTasks;
+import static service.TaskService.taskList;
+
 public abstract class Task implements Comparable<Task>{
-    protected static int idGenerator = 1;
+    protected static int idGenerator = removedTasks.size() + taskList.size() + 1;
     private String title;
-    private final Type TYPE;
+    private final Type type;
     private String description;
-    private final int ID;
-    private final LocalDateTime DATE;
+    private final int id;
+    private final LocalDateTime date;
     public Task(String title, Type type, String description, LocalDateTime localDateTime) {
         this.title = title;
-        this.TYPE = type;
+        this.type = type;
         this.description = description;
-        DATE = localDateTime;
-        ID = idGenerator;
-        idGenerator++;
+        date = localDateTime;
+        id = idGenerator;
     }
     public abstract LocalDateTime getNextDate();
     public abstract boolean isTodaysTask();
     public abstract boolean isExactlyDayTask(LocalDate localDate);
     public boolean isValidNow(){return true;}
-    public abstract LocalDateTime setDATE(String a, String b, String c);
     public void setTitle(String title) {this.title = title;}
     public void setDescription(String description) {
         this.description = description;
@@ -33,13 +34,13 @@ public abstract class Task implements Comparable<Task>{
         return title;
     }
     public Type getType() {
-        return TYPE;
+        return type;
     }
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
-    public LocalDateTime getDATE() {return DATE;}
-    public LocalDate getLocalDate() {return DATE.toLocalDate();}
+
+    public LocalDateTime getDate() {return date;}
     public String getDescription() {
         return description;
     }
@@ -47,7 +48,7 @@ public abstract class Task implements Comparable<Task>{
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd" + "." + "MM" + "." + "yyyy" + "г. " + "H" + "ч." + "m" + "мин");
         String discriptionToString = description.isBlank() ? "." : ", description - " + description;
-        return title + ", type - " + TYPE.getType() + ", id - " + ID + ", date of creating - " + DATE.format(dateTimeFormatter) + discriptionToString;
+        return title + ", type - " + type.getType() + ", id - " + id + ", date of creating - " + date.format(dateTimeFormatter) + discriptionToString;
     }
     @Override
     public int hashCode() {
@@ -59,9 +60,9 @@ public abstract class Task implements Comparable<Task>{
     }
     @Override
     public int compareTo(Task o) {
-        if (this.getDATE().isAfter(o.getDATE()))
+        if (this.getDate().isAfter(o.getDate()))
             return 1;
-        else if (this.getDATE().isBefore(o.getDATE()))
+        else if (this.getDate().isBefore(o.getDate()))
             return -1;
         return 0;
     }

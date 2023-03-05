@@ -10,21 +10,17 @@ public class WeeklyTask extends Task{
         super(title, type, description, localDateTime);
     }
     @Override
-    public LocalDateTime setDATE(String hours, String minutes, String seconds) {
-        return LocalDateTime.now();
-    }
-    @Override
     public boolean isTodaysTask() {
-        return getDATE().getDayOfWeek() == LocalDate.now().getDayOfWeek() && getDATE().isAfter(LocalDateTime.now());
+        return getDate().getDayOfWeek() == LocalDate.now().getDayOfWeek() && getDate().isBefore(LocalDateTime.now());
     }
     @Override
     public boolean isExactlyDayTask(LocalDate localDate) {
-        return localDate.isAfter(getDATE().toLocalDate()) && localDate.getDayOfWeek() == getDATE().getDayOfWeek();
+        return localDate.isAfter(getDate().toLocalDate()) && localDate.getDayOfWeek() == getDate().getDayOfWeek();
     }
     @Override
     public LocalDateTime getNextDate() {
-        LocalDateTime temp = LocalDateTime.now().withDayOfMonth(getDATE().getDayOfMonth());
-        while(getDATE().isBefore(LocalDateTime.now())){
+        LocalDateTime temp = LocalDateTime.now().withDayOfMonth(getDate().getDayOfMonth());
+        while(getDate().isBefore(LocalDateTime.now())){
             temp = temp.plusDays(7);
         }
         return temp;

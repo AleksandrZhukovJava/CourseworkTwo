@@ -1,7 +1,8 @@
 package validation;
 
 import java.time.*;
-import java.util.Scanner;
+
+import static service.TaskService.scanner;
 
 public class Utilities {
     public static void separatedMessage(String message, boolean indentF,boolean indentL) {
@@ -17,23 +18,22 @@ public class Utilities {
         int day = amountValidation("Set day", isThisYear && isThisMonth ? LocalDateTime.now().getDayOfMonth() : 1, Month.of(month).length(Year.isLeap(year)));
         if (time) {
             boolean isThisDay = day == LocalDate.now().getDayOfMonth();
-            int hour = amountValidation("Set hour", isThisYear && isThisMonth && isThisDay ? LocalDateTime.now().getHour() : 0, 24);
+            int hour = amountValidation("Set hour", isThisYear && isThisMonth && isThisDay ? LocalDateTime.now().getHour() : 0, 23);
             boolean isThisHour = hour == LocalDateTime.now().getHour();
-            int minutes = amountValidation("Set minutes", isThisYear && isThisMonth && isThisDay && isThisHour ? LocalDateTime.now().getMinute() : 0, 60);
+            int minutes = amountValidation("Set minutes", isThisYear && isThisMonth && isThisDay && isThisHour ? LocalDateTime.now().getMinute() : 0, 59);
             return LocalDateTime.of(year, month, day, hour, minutes, 0);
         } else {
             return LocalDateTime.of(year, month, day, 0, 0, 0);
         }
     }
     public static int amountValidation(String message, int min, int max) {
-        Scanner sc1 = new Scanner(System.in);
         System.out.println(message);
         boolean result = false;
         int temp;
         String tempString;
         do {
             do {
-                tempString = sc1.nextLine();
+                tempString = scanner.nextLine();
                 if (!tempString.matches("\\d+")) {
                     System.err.println("Invalid number");
                 }
