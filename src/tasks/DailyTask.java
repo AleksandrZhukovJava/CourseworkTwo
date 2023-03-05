@@ -11,21 +11,17 @@ public class DailyTask extends Task{
         super(title, type, description ,localDateTime);
     }
     @Override
-    public LocalDateTime setDATE(String hours, String minutes, String seconds) {
-        return LocalDateTime.now();
-    }
-    @Override
     public boolean isTodaysTask() {
-        return (getDATE().toLocalDate().isEqual(LocalDate.now()) && getDATE().toLocalTime().isAfter(LocalTime.now())) || !(getDATE().isAfter(LocalDateTime.now()));
+        return (getDate().toLocalDate().isEqual(LocalDate.now()) && getDate().toLocalTime().isAfter(LocalTime.now())) || !(getDate().isAfter(LocalDateTime.now()));
     }
     @Override
     public boolean isExactlyDayTask(LocalDate localDate) {
-        return !getDATE().toLocalDate().isAfter(localDate);
+        return !getDate().toLocalDate().isAfter(localDate);
     }
     @Override
     public LocalDateTime getNextDate() {
-        LocalDateTime temp = LocalDateTime.of(LocalDate.now(), getDATE().toLocalTime());
-        if (getDATE().toLocalTime().isAfter(LocalTime.now())) return temp;
+        LocalDateTime temp = LocalDateTime.of(LocalDate.now(), getDate().toLocalTime());
+        if (getDate().toLocalTime().isAfter(LocalTime.now())) return getDate();
         return temp.plusDays(1);
     }
     @Override

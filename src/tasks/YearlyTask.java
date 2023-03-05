@@ -11,21 +11,17 @@ public class YearlyTask extends Task{
         super(title, type, description ,localDateTime);
     }
     @Override
-    public LocalDateTime setDATE(String hours, String minutes, String seconds) {
-        return LocalDateTime.now();
-    }
-    @Override
     public boolean isTodaysTask() {
-        int leapYear = getDATE().getMonth().equals(Month.FEBRUARY) && getDATE().getDayOfMonth() == 29 ? 1 : 0;
-        return (getDATE().getDayOfMonth() == LocalDate.now().getDayOfMonth() + leapYear && getDATE().getMonth() == LocalDate.now().getMonth()) && getDATE().isAfter(LocalDateTime.now());
+        int leapYear = getDate().getMonth().equals(Month.FEBRUARY) && getDate().getDayOfMonth() == 29 ? 1 : 0;
+        return (getDate().getDayOfMonth() == LocalDate.now().getDayOfMonth() + leapYear && getDate().getMonth() == LocalDate.now().getMonth()) && getDate().isAfter(LocalDateTime.now());
     }
     @Override
     public boolean isExactlyDayTask(LocalDate localDate) {
-        return localDate.isAfter(getDATE().toLocalDate()) && localDate.getDayOfYear() == getDATE().getDayOfYear();
+        return localDate.isAfter(getDate().toLocalDate()) && localDate.getDayOfYear() == getDate().getDayOfYear();
     }
     public LocalDateTime getNextDate() {
-        LocalDateTime temp = getDATE();
-        while(getDATE().isBefore(LocalDateTime.now())){
+        LocalDateTime temp = getDate();
+        while(getDate().isBefore(LocalDateTime.now())){
             temp = temp.plusYears(1);
         }
         return temp;

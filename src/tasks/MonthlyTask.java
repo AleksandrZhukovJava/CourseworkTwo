@@ -10,21 +10,17 @@ public class MonthlyTask extends Task{
         super(title, type, description ,localDateTime);
     }
     @Override
-    public LocalDateTime setDATE(String hours, String minutes, String seconds) {
-        return LocalDateTime.now();
-    }
-    @Override
     public boolean isTodaysTask() {
-        return getDATE().getDayOfMonth() == LocalDate.now().getDayOfMonth() && getDATE().isAfter(LocalDateTime.now());
+        return getDate().getDayOfMonth() == LocalDate.now().getDayOfMonth() && getDate().isAfter(LocalDateTime.now());
     }
     @Override
     public boolean isExactlyDayTask(LocalDate localDate) {
-        return localDate.isAfter(getDATE().toLocalDate()) && getDATE().getDayOfMonth() == localDate.getDayOfMonth();
+        return localDate.isAfter(getDate().toLocalDate()) && getDate().getDayOfMonth() == localDate.getDayOfMonth();
     }
     @Override
     public LocalDateTime getNextDate() {
-        LocalDateTime temp = LocalDateTime.now().withMonth(getDATE().getMonthValue());
-        while(getDATE().isBefore(LocalDateTime.now())){
+        LocalDateTime temp = LocalDateTime.now().withMonth(getDate().getMonthValue());
+        while(getDate().isBefore(LocalDateTime.now())){
             temp = temp.plusMonths(1);
         }
         return temp;
